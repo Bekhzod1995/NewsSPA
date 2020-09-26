@@ -1,55 +1,31 @@
-// import React from 'react';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-// } from 'react-router-dom';
+import React from 'react';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+} from 'react-router-dom';
+import Navbar from './Navbar';
+import Business from './Business';
+import Entertainment from './Entertainment';
+import Health from './Health';
+import Science from './Science';
+import Sports from './Sports';
+import Technology from './Technology';
+import General from './General';
 
-// export default function App() {
-//   return (
-//     <Router>
-//       <div>
-//         <nav>
-//           <ul>
-//             <li>
-//               <Link to="/">Home</Link>
-//             </li>
-//             <li>
-//               <Link to="/about">About</Link>
-//             </li>
-//             <li>
-//               <Link to="/users">Users</Link>
-//             </li>
-//           </ul>
-//         </nav>
+const App = () => (
+	<Router>
+		<Navbar />
+		<Switch>
+			<Route exact path="/" component={General} />
+			<Route exact path="/business" component={Business} />
+			<Route exact path="/entertainment" component={Entertainment} />
+			<Route exact path="/health" component={Health} />
+			<Route exact path="/science" component={Science} />
+			<Route exact path="/sports" component={Sports} />
+			<Route exact path="/technology" component={Technology} />
+		</Switch>
+	</Router>
+);
 
-//         {/* A <Switch> looks through its children <Route>s and
-//             renders the first one that matches the current URL. */}
-//         <Switch>
-//           <Route path="/about">
-//             <About />
-//           </Route>
-//           <Route path="/users">
-//             <Users />
-//           </Route>
-//           <Route path="/">
-//             <Home />
-//           </Route>
-//         </Switch>
-//       </div>
-//     </Router>
-//   );
-// }
-
-// function Home() {
-//   return <h2>Home</h2>;
-// }
-
-// function About() {
-//   return <h2>About</h2>;
-// }
-
-// function Users() {
-//   return <h2>Users</h2>;
-// }
+export default App;
