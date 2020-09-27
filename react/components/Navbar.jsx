@@ -9,7 +9,7 @@ import Icon, {
 	DribbbleOutlined,
 	LaptopOutlined,
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../actions/index';
 import Logo from './Logo';
@@ -21,18 +21,20 @@ const Navbar = () => {
 	const [menu, setMenu] = useState(news.activeMenu);
 	const [country, setCountry] = useState(news.activeCountry);
 	const dispatch = useDispatch();
+	const history = useHistory();
+	const { location } = history;
 
 	useEffect(() => {
-		setMenu(menu);
-	}, [menu]);
+		const param = location.pathname.replace('/', '');
+		setMenu(param === '' ? 'general' : param);
+	}, [news]);
 
 	return (
 		<div className="Navbar">
 			<Menu
 				onClick={(key) => setMenu(key)}
-				// selectedKeys={[menu]}
+				selectedKeys={[menu]}
 				mode="horizontal"
-				defaultSelectedKeys={[menu]}
 			>
 				<Menu.Item key="general" icon={<HomeOutlined />}>
 					<Link to="/">General</Link>
@@ -66,6 +68,11 @@ const Navbar = () => {
 					onChange={(value) => {
 						setCountry(value);
 						dispatch(actions.setCountry(value));
+						dispatch(actions.getMoreNews(
+							value,
+							news.activeMenu,
+							1,
+						));
 					}}
 					defaultValue={country}
 					style={{ marginRight: 20, width: 150 }}
